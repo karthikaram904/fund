@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Creator Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+body{
+  display:flex;
+  min-height:100vh;
+  background:#f4f6f9;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  background:#1f2933;
+  min-height:100vh;
+  color:#fff;
+  padding:20px;
+  transition: transform 0.3s ease;
+}
+.sidebar ul{
+  list-style:none;
+}
+.sidebar ul li{
+  padding:12px 15px;
+  cursor:pointer;
+  border-radius:6px;
+  margin-bottom:8px;
+}
+.sidebar ul li:hover{
+  background:#374151;
+}
+.sidebar ul li a{
+  color:#fff;
+  text-decoration:none;
+}
+
+/* MAIN */
+.main{
+  flex:1;
+  padding:30px;
+}
+
+/* SECTIONS */
+.section{
+  background:#fff;
+  padding:25px;
+  border-radius:10px;
+  margin-bottom:25px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+.section h2{
+  margin-bottom:10px;
+}
+.section p{
+  color:#555;
+  margin-bottom:15px;
+}
+
+/* STATS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+.stat-box{
+  background:#2563eb;
+  color:#fff;
+  padding:20px;
+  border-radius:10px;
+}
+.stat-box h3{
+  font-size:26px;
+}
+.stat-box span{
+  font-size:14px;
+  opacity:.9;
+}
+
+/* OVERLAY */
+.overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  z-index:999;
+  display:none;
+}
+.overlay.active{
+  display:block;
+}
+
+/* TOP BAR */
+.topbar{
+  display:none;
+  align-items:center;
+  gap:15px;
+  margin-bottom:20px;
+}
+.toggle-btn{
+  font-size:24px;
+  cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width:1024px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    height:100%;
+    transform:translateX(-100%);
+    z-index:1000;
+  }
+
+  .sidebar.active{
+    transform:translateX(0);
+  }
+
+  .topbar{
+    display:flex;
+  }
+
+  .main{
+    padding:20px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <a href="index.html">
+    <img src="images/crowdfunding.png" alt="Crowdfunding" style="width:200px; margin-bottom:20px;">
+  </a>
+  <ul>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="campaign.html">Create Campaign</a></li>
+    <li><a href="mycampaign.html">My Campaigns</a></li>
+    <li><a href="pledges.html">Pledges</a></li>
+    <li><a href="updates.html">Updates</a></li>
+    <li><a href="analytics.html">Analytics</a></li>
+    <li><a href="withdrawals.html">Withdrawals</a></li>
+    <li><a href="profile.html">Profile</a></li>
+    <li class="logout"><a href="logout.html">Logout</a></li>
+  </ul>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <span class="toggle-btn" onclick="toggleSidebar()">☰</span>
+    <h3>Dashboard</h3>
+  </div>
+
+ <!-- DASHBOARD TITLE -->
+  <div class="section">
+    <h2>Dashboard Overview</h2>
+    <p>Your campaign performance and recent activities at a glance.</p>
+  </div>
+
+  <!-- STATS BOXES -->
+  <div class="section">
+    <div class="stats">
+      <div class="stat-box">
+        <h3>₹7,85,000</h3>
+        <span>Total Funds Raised</span>
+      </div>
+
+      <div class="stat-box">
+        <h3>2,340</h3>
+        <span>Total Backers / Pledges</span>
+      </div>
+
+      <div class="stat-box">
+        <h3>5</h3>
+        <span>Active Campaigns</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECENT ACTIVITY -->
+  <div class="section">
+    <h2>Recent Activity</h2>
+    <p>Latest actions and supporter activities.</p>
+
+    <ul style="margin-top:15px; line-height:1.8;">
+      <li>💰 Arun donated <strong>₹5,000</strong> to “Clean Water Project”</li>
+      <li>📢 You posted an update on <strong>Education for All</strong></li>
+      <li>💰 Priya donated <strong>₹2,000</strong> to “Medical Help Fund”</li>
+      <li>📈 Campaign “Save Children” reached <strong>60%</strong> goal</li>
+    </ul>
+  </div>
+
+  <!-- QUICK ACTIONS -->
+  <div class="section">
+    <h2>Quick Actions</h2>
+    <p>Manage your campaigns quickly.</p>
+
+    <div style="display:flex; gap:15px; flex-wrap:wrap; margin-top:15px;">
+      <a href="#" style="padding:12px 20px; background:#2563eb; color:#fff; border-radius:6px; text-decoration:none;">
+        ✏️ Edit Campaign
+      </a>
+
+      <a href="#" style="padding:12px 20px; background:#2563eb; color:#fff; border-radius:6px; text-decoration:none;">
+        📢 Post Update
+      </a>
+
+      <a href="#" style="padding:12px 20px; background:#2563eb; color:#fff; border-radius:6px; text-decoration:none;">
+        ➕ Create New Campaign
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleSidebar(){
+  document.getElementById("sidebar").classList.toggle("active");
+  document.getElementById("overlay").classList.toggle("active");
+}
+
+// OUTSIDE CLICK CLOSE
+document.getElementById("overlay").addEventListener("click", function(){
+  document.getElementById("sidebar").classList.remove("active");
+  this.classList.remove("active");
+});
+</script>
+
+</body>
+</html>

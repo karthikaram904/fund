@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Withdraw / Payout | Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+  display:flex;
+  background:#f4f6f9;
+}
+
+.dashboard{
+  display:flex;
+  min-height:100vh;
+}
+
+/* Sidebar */
+.sidebar{
+  width:260px;
+  background:#1f2933;
+  min-height:100vh;
+  color:#fff;
+  padding:20px;
+  transition:0.3s;
+}
+
+.sidebar ul{
+  list-style:none;
+}
+
+.sidebar ul li{
+  padding:12px 15px;
+  cursor:pointer;
+  border-radius:6px;
+  margin-bottom:8px;
+}
+
+.sidebar ul li:hover{
+  background:#374151;
+}
+
+.sidebar ul li.logout{
+  
+}
+
+.sidebar ul li a {
+  color:#fff;
+  text-decoration:none;
+}
+
+/* Main */
+.main{
+  flex:1;
+  padding:30px;
+  transition:0.3s;
+}
+
+/* Toggle Button */
+.menu-toggle{
+  display:none;
+  font-size:26px;
+  cursor:pointer;
+  margin-bottom:20px;
+}
+
+/* Overlay */
+.overlay{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  z-index:5;
+}
+
+/* Mobile View */
+@media(max-width:1024px){
+
+  .sidebar{
+    position:fixed;
+    left:-260px;
+    top:0;
+    height:100%;
+    z-index:10;
+  }
+
+  .sidebar.active{
+    left:0;
+  }
+
+  .menu-toggle{
+    display:block;
+  }
+
+  .main{
+    width:100%;
+  }
+
+  .overlay.active{
+    display:block;
+  }
+}
+
+/* Existing Styles (Unchanged) */
+
+.page-title{
+  margin-bottom:20px;
+}
+
+.balance-box{
+  background:#2563eb;
+  color:#fff;
+  padding:25px;
+  border-radius:10px;
+  margin-bottom:30px;
+}
+
+.balance-box p{
+  font-size:28px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.section{
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  margin-bottom:25px;
+}
+
+.section h3{
+  margin-bottom:15px;
+}
+
+.form-group{
+  margin-bottom:15px;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:bold;
+}
+
+.form-group input{
+  width:100%;
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:6px;
+}
+
+button{
+  background:#2563eb;
+  color:#fff;
+  border:none;
+  padding:10px 20px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#1e40af;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+table th, table td{
+  padding:12px;
+  border-bottom:1px solid #e5e7eb;
+  text-align:left;
+}
+
+table th{
+  background:#f1f5f9;
+}
+
+.status-success{
+  color:green;
+  font-weight:bold;
+}
+
+.status-pending{
+  color:orange;
+  font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <a href="index.html">
+      <img src="images/crowdfunding.png" alt="Crowdfunding" style="width:200px; margin-bottom:20px;">
+    </a>
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="campaign.html">Create Campaign</a></li>
+      <li><a href="mycampaign.html">My Campaigns</a></li>
+      <li><a href="pledges.html">Pledges</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="analytics.html">Analytics</a></li>
+      <li><a href="withdrawals.html">Withdrawals</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li class="logout"><a href="logout.html">Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Toggle Icon -->
+    <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
+
+    <div class="page-title">
+      <h2>Withdraw / Payout</h2>
+    </div>
+
+    <!-- Available Balance -->
+    <div class="balance-box">
+      <h3>Available Balance</h3>
+      <p>₹2,35,000</p>
+    </div>
+
+    <!-- Bank Details -->
+    <div class="section">
+      <h3>Bank Details</h3>
+      <div class="form-group">
+        <label>Account Holder Name</label>
+        <input type="text" value="John Doe">
+      </div>
+      <div class="form-group">
+        <label>Bank Name</label>
+        <input type="text" value="State Bank of India">
+      </div>
+      <div class="form-group">
+        <label>Account Number</label>
+        <input type="text" value="XXXX XXXX 4321">
+      </div>
+      <div class="form-group">
+        <label>IFSC Code</label>
+        <input type="text" value="SBIN0001234">
+      </div>
+      <button>Update Bank Details</button>
+    </div>
+
+    <!-- Request Withdrawal -->
+    <div class="section">
+      <h3>Request Withdrawal</h3>
+      <div class="form-group">
+        <label>Withdraw Amount</label>
+        <input type="number" placeholder="Enter amount">
+      </div>
+      <button>Request Payout</button>
+    </div>
+
+    <!-- Payout History -->
+    <div class="section">
+      <h3>Payout History</h3>
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+        <tr>
+          <td>05 Jan 2026</td>
+          <td>₹50,000</td>
+          <td class="status-success">Completed</td>
+        </tr>
+        <tr>
+          <td>22 Dec 2025</td>
+          <td>₹75,000</td>
+          <td class="status-success">Completed</td>
+        </tr>
+        <tr>
+          <td>10 Dec 2025</td>
+          <td>₹40,000</td>
+          <td class="status-pending">Pending</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function toggleSidebar(){
+  document.getElementById("sidebar").classList.toggle("active");
+  document.getElementById("overlay").classList.toggle("active");
+}
+
+document.getElementById("overlay").addEventListener("click", function(){
+  document.getElementById("sidebar").classList.remove("active");
+  this.classList.remove("active");
+});
+</script>
+
+</body>
+</html>

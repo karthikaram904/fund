@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Profile & Settings | Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+.dashboard{
+  display:flex;
+  min-height:100vh;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+  display:flex;
+  background:#f4f6f9;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  background:#1f2933;
+  min-height:100vh;
+  color:#fff;
+  padding:20px;
+  transition:0.3s;
+}
+
+.sidebar ul{
+  list-style:none;
+}
+
+.sidebar ul li{
+  padding:12px 15px;
+  cursor:pointer;
+  border-radius:6px;
+  margin-bottom:8px;
+}
+
+.sidebar ul li:hover{
+  background:#374151;
+}
+
+.sidebar ul li.logout{
+  
+}
+
+.sidebar ul li a{
+  color:#fff;
+  text-decoration:none;
+}
+
+/* Main */
+.main{
+  flex:1;
+  padding:30px;
+  transition:0.3s;
+}
+
+/* Toggle Button */
+.menu-toggle{
+  display:none;
+  font-size:26px;
+  cursor:pointer;
+  margin-bottom:20px;
+}
+
+/* Overlay */
+.overlay{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  z-index:5;
+}
+
+/* Mobile View */
+@media(max-width:1024px){
+
+  .sidebar{
+    position:fixed;
+    left:-260px;
+    top:0;
+    height:100%;
+    z-index:10;
+  }
+
+  .sidebar.active{
+    left:0;
+  }
+
+  .menu-toggle{
+    display:block;
+  }
+
+  .main{
+    width:100%;
+  }
+
+  .overlay.active{
+    display:block;
+  }
+}
+
+/* Existing Styles (Unchanged) */
+
+.page-title{
+  margin-bottom:20px;
+}
+
+.section{
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  margin-bottom:25px;
+}
+
+.section h3{
+  margin-bottom:15px;
+}
+
+.form-group{
+  margin-bottom:15px;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:bold;
+}
+
+.form-group input,
+.form-group select{
+  width:100%;
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:6px;
+}
+
+button{
+  background:#2563eb;
+  color:#fff;
+  border:none;
+  padding:10px 20px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#1e40af;
+}
+
+.toggle{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.toggle input{
+  width:18px;
+  height:18px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <a href="index.html">
+      <img src="images/crowdfunding.png" alt="Crowdfunding" style="width:200px; margin-bottom:20px;">
+    </a>
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="campaign.html">Create Campaign</a></li>
+      <li><a href="mycampaign.html">My Campaigns</a></li>
+      <li><a href="pledges.html">Pledges</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="analytics.html">Analytics</a></li>
+      <li><a href="withdrawals.html">Withdrawals</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li class="logout"><a href="logout.html">Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Toggle Icon -->
+    <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
+
+    <div class="page-title">
+      <h2>Profile & Settings</h2>
+    </div>
+
+    <!-- Creator Profile -->
+    <div class="section">
+      <h3>Creator Profile</h3>
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" value="John Doe">
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" value="john@email.com">
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="text" value="+91 12345 67890">
+      </div>
+      <div class="form-group">
+        <label>Bio</label>
+        <input type="text" value="Campaign creator & social impact enthusiast">
+      </div>
+      <button>Update Profile</button>
+    </div>
+
+    <!-- Change Password -->
+    <div class="section">
+      <h3>Change Password</h3>
+      <div class="form-group">
+        <label>Current Password</label>
+        <input type="password">
+      </div>
+      <div class="form-group">
+        <label>New Password</label>
+        <input type="password">
+      </div>
+      <div class="form-group">
+        <label>Confirm New Password</label>
+        <input type="password">
+      </div>
+      <button>Change Password</button>
+    </div>
+
+    <!-- Notification Settings -->
+    <div class="section">
+      <h3>Notification Settings</h3>
+      <div class="toggle">
+        <input type="checkbox" checked>
+        <label>Email Notifications</label>
+      </div><br>
+      <div class="toggle">
+        <input type="checkbox" checked>
+        <label>New Pledge Alerts</label>
+      </div><br>
+      <div class="toggle">
+        <input type="checkbox">
+        <label>Campaign Updates Alerts</label>
+      </div><br>
+      <button>Save Notification Settings</button>
+    </div>
+
+    <!-- Payment & Bank Info -->
+    <div class="section">
+      <h3>Payment & Bank Information</h3>
+      <div class="form-group">
+        <label>Bank Name</label>
+        <input type="text" value="State Bank of India">
+      </div>
+      <div class="form-group">
+        <label>Account Number</label>
+        <input type="text" value="XXXX XXXX 4321">
+      </div>
+      <div class="form-group">
+        <label>IFSC Code</label>
+        <input type="text" value="SBIN0001234">
+      </div>
+      <button>Update Bank Info</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function toggleSidebar(){
+  document.getElementById("sidebar").classList.toggle("active");
+  document.getElementById("overlay").classList.toggle("active");
+}
+
+document.getElementById("overlay").addEventListener("click", function(){
+  document.getElementById("sidebar").classList.remove("active");
+  this.classList.remove("active");
+});
+</script>
+
+</body>
+</html>

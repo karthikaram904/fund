@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Logout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:#051311;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .logout-box{
+      background:#fff;
+      padding:40px;
+      border-radius:12px;
+      text-align:center;
+      max-width:400px;
+      width:100%;
+      box-shadow:0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .logout-box img{
+      width:190px;
+      margin-bottom:20px;
+    }
+
+    .logout-box h2{
+      margin-bottom:10px;
+      color:#333;
+    }
+
+    .logout-box p{
+      color:#666;
+      margin-bottom:25px;
+      font-size:15px;
+    }
+
+    .btn-group{
+      display:flex;
+      gap:15px;
+      justify-content:center;
+    }
+
+    .btn{
+      padding:12px 22px;
+      border-radius:6px;
+      border:none;
+      cursor:pointer;
+      font-size:14px;
+      text-decoration:none;
+    }
+
+    .btn-logout{
+      background:#e74c3c;
+      color:#fff;
+    }
+
+    .btn-cancel{
+      background:#ecf0f1;
+      color:#333;
+    }
+
+    .btn:hover{
+      opacity:0.9;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="logout-box">
+    <a href="index.html"><img src="images/crowdfunding.png" alt="Logout"></a>
+
+    <h2>Logout Confirmation</h2>
+    <p>Are you sure you want to logout from your dashboard?</p>
+
+    <div class="btn-group">
+      <button class="btn btn-logout" onclick="logoutUser()">Yes, Logout</button>
+      <a href="dashboard.html" class="btn btn-cancel">Cancel</a>
+    </div>
+  </div>
+
+  <script>
+    function logoutUser(){
+      // Clear session / local storage
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // Redirect to login page
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+</html>

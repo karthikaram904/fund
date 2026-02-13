@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Create Campaign | Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+/* Layout */
+.dashboard{
+  display:flex;
+  min-height:100vh;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+  display:flex;
+  background:#f4f6f9;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  background:#1f2933;
+  min-height:100vh;
+  color:#fff;
+  padding:20px;
+  transition:transform 0.3s ease;
+}
+.sidebar ul{
+  list-style:none;
+}
+.sidebar ul li{
+  padding:12px 15px;
+  cursor:pointer;
+  border-radius:6px;
+  margin-bottom:8px;
+}
+.sidebar ul li:hover{
+  background:#374151;
+}
+.sidebar ul li.logout{
+  
+}
+.sidebar ul li a{
+  color:#fff;
+  text-decoration:none;
+}
+
+/* MAIN */
+.main{
+  flex:1;
+  padding:30px;
+}
+
+.page-title{
+  margin-bottom:25px;
+}
+.page-title p{
+  color:#555;
+}
+
+/* FORM */
+.campaign-form{
+  max-width:700px;
+  background:#fff;
+  padding:25px;
+  border-radius:8px;
+}
+.form-group{
+  margin-bottom:18px;
+}
+.form-group label{
+  display:block;
+  font-weight:600;
+  margin-bottom:6px;
+}
+.form-group input,
+.form-group textarea,
+.form-group select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:6px;
+}
+.form-group small{
+  color:#777;
+}
+.form-actions{
+  display:flex;
+  gap:15px;
+  margin-top:20px;
+}
+.btn-primary{
+  background:#2563eb;
+  color:#fff;
+  border:none;
+  padding:12px 25px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.btn-secondary{
+  background:#e5e7eb;
+  border:none;
+  padding:12px 25px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* TOGGLE BUTTON */
+.toggle-btn{
+  display:none;
+  font-size:24px;
+  cursor:pointer;
+  margin-bottom:20px;
+}
+
+/* OVERLAY */
+.overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  display:none;
+  z-index:999;
+}
+.overlay.active{
+  display:block;
+}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+
+  .dashboard{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    height:100%;
+    transform:translateX(-100%);
+    z-index:1000;
+  }
+
+  .sidebar.active{
+    transform:translateX(0);
+  }
+
+  .toggle-btn{
+    display:block;
+  }
+
+  .main{
+    padding:20px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<div class="dashboard">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <a href="index.html">
+      <img src="images/crowdfunding.png" alt="Crowdfunding" style="width:200px; margin-bottom:20px;">
+    </a>
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="campaign.html">Create Campaign</a></li>
+      <li><a href="mycampaign.html">My Campaigns</a></li>
+      <li><a href="pledges.html">Pledges</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="analytics.html">Analytics</a></li>
+      <li><a href="withdrawals.html">Withdrawals</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li class="logout"><a href="logout.html">Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+
+    <!-- Toggle Icon -->
+    <span class="toggle-btn" onclick="toggleSidebar()">☰</span>
+
+    <div class="page-title">
+      <h2>Create New Campaign</h2>
+      <p>Launch your fundraising campaign by filling the details below.</p>
+    </div>
+
+    <form class="campaign-form">
+
+      <div class="form-group">
+        <label>Campaign Title</label>
+        <input type="text" placeholder="Enter campaign title">
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea rows="5" placeholder="Explain your campaign goal and impact"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Goal Amount</label>
+        <input type="number" placeholder="Enter target amount (₹)">
+      </div>
+
+      <div class="form-group">
+        <label>Deadline</label>
+        <input type="date">
+      </div>
+
+      <div class="form-group">
+        <label>Category</label>
+        <select>
+          <option>Select Category</option>
+          <option>Education</option>
+          <option>Medical</option>
+          <option>Food & Hunger</option>
+          <option>Disaster Relief</option>
+          <option>Community Development</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Cover Image / Video</label>
+        <input type="file">
+        <small>Upload a campaign image or short video</small>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">🚀 Publish Campaign</button>
+        <button type="reset" class="btn-secondary">Save as Draft</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<script>
+function toggleSidebar(){
+  document.getElementById("sidebar").classList.toggle("active");
+  document.getElementById("overlay").classList.toggle("active");
+}
+
+document.getElementById("overlay").addEventListener("click", function(){
+  document.getElementById("sidebar").classList.remove("active");
+  this.classList.remove("active");
+});
+</script>
+
+</body>
+</html>
